@@ -163,21 +163,6 @@ local ToggleAuCraft = GameTab:CreateToggle({
    end,
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 local MainTab = Window:CreateTab("🏃 Player Settings", nil) -- Title, Image
 local MainSection = MainTab:CreateSection("Main")
 
@@ -322,17 +307,22 @@ local InputTP = TeleportTab:CreateInput({
    PlaceholderText = "Type Here",
    RemoveTextAfterFocusLost = false,
    Callback = function(Text)
-        local mainplayer = game.Players.LocalPlayer.Character
-        local teleportTo = workspace:FindFirstChild(Text)
+
+        print(Text)
+        local teleportName = Text
+        
+        local targetPlyr = game.Players.LocalPlayer.Character
+        local teleportTo = game:GetService("Workspace"):FindFirstChild(teleportName):FindFirstChild("HumanoidRootPart")
         
         if TeleportCont == false then
-            mainplayer:SetPrimaryPartCFrame(teleportTo.PrimaryPart.CFrame)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
         else
-            while(TeleportCont == true) do
-                mainplayer:SetPrimaryPartCFrame(teleportTo.PrimaryPart.CFrame)
+            while TeleportCont == true do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
                 wait(teleportDelay)
             end
         end
+
    end,
 })
 
@@ -360,16 +350,3 @@ local SliderTP = TeleportTab:CreateSlider({
         teleportDelay = Value
    end,
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
