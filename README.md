@@ -1,5 +1,5 @@
-# RobloxUI
-Roblox UI for +1 Money Every Click Game
+# +1 Money Every Click Script
+Roblox Exploit UI for +1 Money Every Click Game
 
 INCLUDING
 
