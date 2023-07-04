@@ -7,7 +7,7 @@ local teleportDelay = 1
 
 
 local Window = Rayfield:CreateWindow({
-   Name = "+1 Money Every Click  -- Exploit",
+   Name = "+1 Jump Every Second  -- Exploit",
    LoadingTitle = "BreApple Hub",
    LoadingSubtitle = "by BreApple",
    ConfigurationSaving = {
