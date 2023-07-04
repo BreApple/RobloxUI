@@ -1,0 +1,334 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+getgenv().TeleportCont = false;
+_G.OpeningNow = false
+local RealmName = ""
+local RealmPath = ""
+local teleportDelay = 1
+
+
+local Window = Rayfield:CreateWindow({
+   Name = "+1 Money Every Click  -- Exploit",
+   LoadingTitle = "BreApple Hub",
+   LoadingSubtitle = "by BreApple",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "YoutubeBreAppleHub"
+   },
+})
+
+local GameTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
+
+
+MainSection = GameTab:CreateSection("Auto Win ⬇")
+
+
+function bringName(eggNmaeVal)
+    if RealmName == "🏆0 Earth Realm +1 Win" then return("Earth_Realm") end
+    if RealmName == "🏆2 Desert Realm +4 Win" then return("Desert_Realm") end
+    if RealmName == "🏆14 Snow Realm +8 Win" then return("Snow_Realm") end
+    if RealmName == "🏆35 Mountain Realm +12 Win" then return("Mountain_Realm") end
+    if RealmName == "🏆85 Ice Realm +18 Win" then return("Ice_Realm") end
+    if RealmName == "🏆175 Volcano Realm +25 Win" then return("Volcano_Realm") end
+    if RealmName == "🏆320 Crystal Realm +35 Win" then return("Crystal_Realm") end
+    if RealmName == "🏆550 Poison Realm +50 Win" then return("Poison_Realm") end
+    if RealmName == "🏆900 Nuclear Realm +70 Win" then return("Nuclear_Realm") end
+    if RealmName == "🏆1,450 Lava Realm +100 Win" then return("Lava_Realm") end
+    if RealmName == "🏆2,300 Moon Realm +140 Win" then return("Moon_Realm") end
+    if RealmName == "🏆3,600 Mars Realm +190 Win" then return("Mars_Realm") end
+    if RealmName == "🏆5,700 Sun Realm +250 Win" then return("Sun_Realm") end
+    if RealmName == "🏆8,400 Void Realm +350 Win" then return("Void_Realm") end
+    if RealmName == "🏆11,500 Underworld Realm +500 Win" then return("Underworld_Realm") end
+end
+
+local DropdownAO = GameTab:CreateDropdown({
+   Name = "Auto Win",
+   Options = {"🏆0 Earth Realm +1 Win", "🏆2 Desert Realm +4 Win", "🏆14 Snow Realm +8 Win", "🏆35 Mountain Realm +12 Win", "🏆85 Ice Realm +18 Win", "🏆175 Volcano Realm +25 Win", "🏆320 Crystal Realm +35 Win","🏆550 Poison Realm +50 Win", "🏆900 Nuclear Realm +70 Win", "🏆1,450 Lava Realm +100 Win", "🏆2,300 Moon Realm +140 Win", "🏆3,600 Mars Realm +190 Win", "🏆5,700 Sun Realm +250 Win", "🏆8,400 Void Realm +350 Win", "🏆11,500 Underworld Realm +500 Win"},
+   CurrentOption = {"Earth Realm"},
+   MultipleOptions = false,
+   Flag = "AutoWin",
+   Callback = function(Option)
+        print (Option[1])
+        RealmName = Option[1]
+        
+        RealmName = bringName(RealmName)
+        --print (RealmPath)
+   end,
+})
+
+local ToggleStOpen = GameTab:CreateToggle({
+    Name = "Start AutoWin",
+    CurrentValue = OpeningNow,
+    Flag = "AutoStart", 
+    Callback = function(EqBest)
+
+        OpeningNow = not OpeningNow
+        print(OpeningNow)
+        if OpeningNow == true then
+            local player = game.Players.LocalPlayer
+            local humanoid = player.Character.HumanoidRootPart
+            --local realmName = "Lava_Realm"
+            
+            local tpName = workspace:FindFirstChild("Worlds")
+            print(tpName)
+            local tpFile =  tpName:FindFirstChild(RealmName)
+            print(tpFile)
+            local tpPart = tpFile:FindFirstChild("Main_Win_Giver")
+            print(tpPart)
+
+            while OpeningNow == true do
+            	humanoid.CFrame = tpPart.CFrame
+                wait(0.3)
+            end
+        end
+   end,
+})
+
+MainSection = GameTab:CreateSection("Auto Craft ⬇")
+
+local ToggleAuCraft = GameTab:CreateToggle({
+    Name = "Auto Craft",
+    CurrentValue = _G.AutoCraft,
+    Flag = "AutoCraft", 
+    Callback = function(auCraft)
+
+        _G.AutoCraft = not _G.AutoCraft
+        while _G.AutoCraft == true do
+            
+            local args = {
+                [1] = game:GetService("Players").LocalPlayer.Custom_Data.Pets_Stored:FindFirstChild("Normal: 7")
+            }
+            
+            game:GetService("ReplicatedStorage").Remote_Functions.Craft_All:InvokeServer(unpack(args))
+            wait(1)
+        end
+
+   end,
+})
+
+
+MainSection = GameTab:CreateSection("Auto Jump ⬇")
+
+local ToggleAuCraft = GameTab:CreateToggle({
+    Name = "Auto Jump (Best for Heaven)",
+    CurrentValue = _G.AutoJump,
+    Flag = "AutoJump", 
+    Callback = function()
+
+        _G.AutoJump = not _G.AutoJump
+        while _G.AutoJump == true do
+            game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            wait()
+        end
+
+   end,
+})
+
+local ToggleAuHeaven = GameTab:CreateToggle({
+    Name = "Auto Heaven 🏆25,000 (auto jump recommended)",
+    CurrentValue = _G.AutoHeaven,
+    Flag = "AutoHeaven", 
+    Callback = function()
+
+        _G.AutoHeaven = not _G.AutoHeaven
+        while _G.AutoHeaven == true do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Worlds["Heaven_Realm"]["Jump_Pad"]["Jump_Zone"].CFrame
+            wait(37)
+        end
+
+   end,
+})
+
+
+
+
+
+
+
+local MainTab = Window:CreateTab("🏃 Player Settings", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+local TeleportTab = Window:CreateTab("👻 ️Teleport", nil) -- Title, Image
+
+
+Rayfield:Notify({
+   Title = "Script Executed Successfully",
+   Content = "have fun",
+   Duration = 5,
+   Image = nil
+})
+
+--INFITINE JUMP
+local ToggleIJ = MainTab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = _G.infinJump,
+    Flag = "Toggle1",
+    
+    Callback = function(infJump)
+        _G.infinJump = not _G.infinJump
+        
+        if _G.infinJumpStarted == nil then
+           _G.infinJumpStarted = true
+           
+           game.StarterGui:SetCore("SendNotification", {Title="BreApple Hub"; Text="Infinite Jump Activatted!"; Duration=5;})
+        
+           local plr = game:GetService('Players').LocalPlayer
+           local m = plr:GetMouse()
+           m.KeyDown:connect(function(k)
+               if _G.infinJump then
+                   if k:byte() == 32 then
+                       humanoid = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+                       humanoid:ChangeState('Jumping')
+                       wait()
+                       humanoid:ChangeState('Seated')
+                   end
+                end
+            end)
+        end
+   end,
+})
+
+--FLY UI
+local ButtonFLY = MainTab:CreateButton({
+   Name = "FLY UI",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/BreApple/RobloxUI/main/flyUIscript"))()
+   end,
+})
+
+
+--WALKSPEED
+--local Label = MainTab:CreateLabel("⬇⬇ Set Walk Speed ⬇⬇")
+MainSection = MainTab:CreateSection("Set Walks Speed ⬇")
+
+
+local InputWS = MainTab:CreateInput({
+   Name = "Type the Walkspeed You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(wSpeedNow)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = wSpeedNow
+   end,
+})
+
+
+local SliderWS = MainTab:CreateSlider({
+   Name = "Walkspeed Slider",
+   Range = {0, 500},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
+   Flag = "Slider1", 
+   Callback = function(wsSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = wsSliderVal
+   end,
+})
+
+
+--local Label = MainTab:CreateLabel("⬇⬇ Set Jump Power ⬇⬇")
+MainSection = MainTab:CreateSection("Set Jump Power ⬇")
+
+--JUMP POWER
+local InputJP = MainTab:CreateInput({
+   Name = "Type the Jump Power You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(jPowerNow)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jPowerNow
+   end,
+})
+
+
+local SliderJP = MainTab:CreateSlider({
+   Name = "Jump Power Slider",
+   Range = {0, 500},
+   Increment = 1,
+   Suffix = "Jump",
+   CurrentValue = game.Players.LocalPlayer.Character.Humanoid.JumpPower,
+   Flag = "Slider1", 
+   Callback = function(jpSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jpSliderVal
+   end,
+})
+
+
+--local Label = MainTab:CreateLabel("⬇⬇ Set Hip Height ⬇⬇")
+MainSection = MainTab:CreateSection("Set Hip Height ⬇")
+
+
+--HIP HEIGHT
+local InputHH = MainTab:CreateInput({
+   Name = "Type the Hip Height You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(hHeightNow)
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = hHeightNow
+   end,
+})
+
+
+local SliderHH = MainTab:CreateSlider({
+   Name = "Hip Height Slider",
+   Range = {0, 100},
+   Increment = 1,
+   Suffix = "",
+   CurrentValue = 2,
+   Flag = "Slider1", 
+   Callback = function(hhSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = hhSliderVal
+   end,
+})
+
+
+--T E L E P O R T TAB
+MainSection = TeleportTab:CreateSection("Teleport to Players ⬇")
+
+--teleporat to a Player
+local InputTP = TeleportTab:CreateInput({
+   Name = "Type the Player Name You Want to Teleport",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+
+        print(Text)
+        local teleportName = Text
+        
+        local targetPlyr = game.Players.LocalPlayer.Character
+        local teleportTo = game:GetService("Workspace"):FindFirstChild(teleportName):FindFirstChild("HumanoidRootPart")
+        
+        if TeleportCont == false then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
+        else
+            while TeleportCont == true do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
+                wait(teleportDelay)
+            end
+        end
+
+   end,
+})
+
+--teleport Continuously to a Player
+local ToggleTP = TeleportTab:CreateToggle({
+   Name = "Teleport Continuously",
+   CurrentValue = TeleportCont,
+   Flag = "Toggle2", 
+   Callback = function(Value)
+       
+       TeleportCont = not TeleportCont
+       
+   end,
+})
+
+--teleport delay
+local SliderTP = TeleportTab:CreateSlider({
+   Name = "Teleport Delay",
+   Range = {1, 100},
+   Increment = 1,
+   Suffix = "Delay",
+   CurrentValue = 1,
+   Flag = "Slider2", 
+   Callback = function(Value)
+        teleportDelay = Value
+   end,
+})
