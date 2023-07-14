@@ -1,0 +1,271 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+getgenv().TeleportCont = false;
+_G.OpeningNow = false
+local theNumb = 5016268053
+local RealmName = ""
+local RealmPath = ""
+local teleportDelay = 1
+
+
+local Window = Rayfield:CreateWindow({
+   Name = "🏆 Stud Jump Obby -- Script",
+   LoadingTitle = "Zyron's Script Hub",
+   LoadingSubtitle = "by Cheatsmith Zyron",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "YoutubeBreAppleHub"
+   },
+})
+
+local GameTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
+
+local ToggleStOpen = GameTab:CreateToggle({
+    Name = "Auto Tap",
+    CurrentValue = OpeningNow,
+    Flag = "AutoTap", 
+    Callback = function()
+
+        OpeningNow = not OpeningNow
+        print(OpeningNow)
+        if OpeningNow == true then
+            print(theNumb)
+        	while OpeningNow == true do
+        		local newVal = theNumb + 1000
+        		theNumb = newVal
+        		local args = {
+        		    [1] = theNumb
+        		}
+        		
+        		game:GetService("ReplicatedStorage").Remote_Events.Add_Jump:FireServer(unpack(args))
+        		wait()
+        	end
+        end
+   end,
+})
+
+MainSection = GameTab:CreateSection("Auto Win ⬇")
+
+local ToggleAuCraft = GameTab:CreateToggle({
+    Name = "Auto Jump (Best for Heaven)",
+    CurrentValue = _G.AutoJump,
+    Flag = "AutoJump", 
+    Callback = function()
+
+        _G.AutoJump = not _G.AutoJump
+        while _G.AutoJump == true do
+            game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            wait()
+        end
+
+   end,
+})
+
+local ToggleAuHeaven = GameTab:CreateToggle({
+    Name = "Auto Win Max (auto jump recommended)",
+    CurrentValue = _G.AutoHeaven,
+    Flag = "AutoHeaven", 
+    Callback = function()
+
+        _G.AutoHeaven = not _G.AutoHeaven
+        while _G.AutoHeaven == true do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Worlds["Heaven_Realm"].Lobby["Jump_Zone"].CFrame
+            wait()
+        end
+
+   end,
+})
+
+
+
+
+
+
+
+local MainTab = Window:CreateTab("🏃 Player Settings", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+local TeleportTab = Window:CreateTab("👻 ️Teleport", nil) -- Title, Image
+
+
+Rayfield:Notify({
+   Title = "Script Executed Successfully",
+   Content = "have fun",
+   Duration = 5,
+   Image = nil
+})
+
+--INFITINE JUMP
+local ToggleIJ = MainTab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = _G.infinJump,
+    Flag = "Toggle1",
+    
+    Callback = function(infJump)
+        _G.infinJump = not _G.infinJump
+        
+        if _G.infinJumpStarted == nil then
+           _G.infinJumpStarted = true
+           
+           game.StarterGui:SetCore("SendNotification", {Title="BreApple Hub"; Text="Infinite Jump Activatted!"; Duration=5;})
+        
+           local plr = game:GetService('Players').LocalPlayer
+           local m = plr:GetMouse()
+           m.KeyDown:connect(function(k)
+               if _G.infinJump then
+                   if k:byte() == 32 then
+                       humanoid = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+                       humanoid:ChangeState('Jumping')
+                       wait()
+                       humanoid:ChangeState('Seated')
+                   end
+                end
+            end)
+        end
+   end,
+})
+
+--FLY UI
+local ButtonFLY = MainTab:CreateButton({
+   Name = "FLY UI",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/BreApple/RobloxUI/main/flyUIscript"))()
+   end,
+})
+
+
+--WALKSPEED
+--local Label = MainTab:CreateLabel("⬇⬇ Set Walk Speed ⬇⬇")
+MainSection = MainTab:CreateSection("Set Walks Speed ⬇")
+
+
+local InputWS = MainTab:CreateInput({
+   Name = "Type the Walkspeed You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(wSpeedNow)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = wSpeedNow
+   end,
+})
+
+
+local SliderWS = MainTab:CreateSlider({
+   Name = "Walkspeed Slider",
+   Range = {0, 500},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
+   Flag = "Slider1", 
+   Callback = function(wsSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = wsSliderVal
+   end,
+})
+
+
+--local Label = MainTab:CreateLabel("⬇⬇ Set Jump Power ⬇⬇")
+MainSection = MainTab:CreateSection("Set Jump Power ⬇")
+
+--JUMP POWER
+local InputJP = MainTab:CreateInput({
+   Name = "Type the Jump Power You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(jPowerNow)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jPowerNow
+   end,
+})
+
+
+local SliderJP = MainTab:CreateSlider({
+   Name = "Jump Power Slider",
+   Range = {0, 500},
+   Increment = 1,
+   Suffix = "Jump",
+   CurrentValue = game.Players.LocalPlayer.Character.Humanoid.JumpPower,
+   Flag = "Slider1", 
+   Callback = function(jpSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jpSliderVal
+   end,
+})
+
+
+--local Label = MainTab:CreateLabel("⬇⬇ Set Hip Height ⬇⬇")
+MainSection = MainTab:CreateSection("Set Hip Height ⬇")
+
+
+--HIP HEIGHT
+local InputHH = MainTab:CreateInput({
+   Name = "Type the Hip Height You Want",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(hHeightNow)
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = hHeightNow
+   end,
+})
+
+
+local SliderHH = MainTab:CreateSlider({
+   Name = "Hip Height Slider",
+   Range = {0, 100},
+   Increment = 1,
+   Suffix = "",
+   CurrentValue = 2,
+   Flag = "Slider1", 
+   Callback = function(hhSliderVal)
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = hhSliderVal
+   end,
+})
+
+
+--T E L E P O R T TAB
+MainSection = TeleportTab:CreateSection("Teleport to Players ⬇")
+
+--teleporat to a Player
+local InputTP = TeleportTab:CreateInput({
+   Name = "Type the Player Name You Want to Teleport",
+   PlaceholderText = "Type Here",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+
+        print(Text)
+        local teleportName = Text
+        
+        local targetPlyr = game.Players.LocalPlayer.Character
+        local teleportTo = game:GetService("Workspace"):FindFirstChild(teleportName):FindFirstChild("HumanoidRootPart")
+        
+        if TeleportCont == false then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
+        else
+            while TeleportCont == true do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = teleportTo.CFrame
+                wait(teleportDelay)
+            end
+        end
+
+   end,
+})
+
+--teleport Continuously to a Player
+local ToggleTP = TeleportTab:CreateToggle({
+   Name = "Teleport Continuously",
+   CurrentValue = TeleportCont,
+   Flag = "Toggle2", 
+   Callback = function(Value)
+       
+       TeleportCont = not TeleportCont
+       
+   end,
+})
+
+--teleport delay
+local SliderTP = TeleportTab:CreateSlider({
+   Name = "Teleport Delay",
+   Range = {1, 100},
+   Increment = 1,
+   Suffix = "Delay",
+   CurrentValue = 1,
+   Flag = "Slider2", 
+   Callback = function(Value)
+        teleportDelay = Value
+   end,
+})
