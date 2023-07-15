@@ -11,7 +11,7 @@ local PlaceIds = {
     9426795465
 }
 
-if game.PlaceId == 6403373529 then 
+if game.PlaceId == 9431156611 then 
 
 	_G.settingsTable = {
 
