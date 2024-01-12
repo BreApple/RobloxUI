@@ -1,0 +1,73 @@
+-- Get the LocalPlayer
+local player = game.Players.LocalPlayer
+
+-- Set the offset distance
+local offsetDistance = -5  -- Negative value for teleporting behind
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TeleportGui"
+screenGui.Parent = player.PlayerGui
+
+-- Create TextButton
+local toggleButton = Instance.new("TextButton")
+toggleButton.Name = "ToggleButton"
+toggleButton.Text = "Enable Teleport"
+toggleButton.Size = UDim2.new(0, 150, 0, 50)
+toggleButton.Position = UDim2.new(0.5, -75, 0.5, -25)
+toggleButton.Parent = screenGui
+
+-- Reference to the main teleport script (replace with the actual path)
+local teleportScript = game.Players.LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("TeleportScript") -- Adjust the path as needed
+
+-- Variable to track the teleport state
+local teleportEnabled = false
+
+-- Function to toggle the teleport script
+local function toggleTeleportScript()
+    if teleportScript then
+        teleportEnabled = not teleportEnabled
+        if teleportEnabled then
+            toggleButton.Text = "Disable Teleport"
+        else
+            toggleButton.Text = "Enable Teleport"
+        end
+    end
+end
+
+-- Connect the function to the button's MouseButton1Click event
+toggleButton.MouseButton1Click:Connect(toggleTeleportScript)
+
+-- Function to continuously teleport behind eligible players
+local function teleportBehindPlayers()
+    while wait() do
+        if teleportEnabled then
+            -- Identify players with "Playing" boolValue set to true and are alive
+            local targetPlayers = {}
+            for _, otherPlayer in pairs(game.Players:GetPlayers()) do
+                if otherPlayer ~= player and otherPlayer:FindFirstChild("Playing") and otherPlayer.Playing.Value == true and otherPlayer.Character and otherPlayer.Character:FindFirstChild("Humanoid") and otherPlayer.Character.Humanoid.Health > 0 then
+                    table.insert(targetPlayers, otherPlayer)
+                end
+            end
+
+            -- Teleport behind and face each target player
+            for _, targetPlayer in ipairs(targetPlayers) do
+                local targetCharacter = targetPlayer.Character
+                if targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart") then
+                    -- Calculate the new position for teleporting behind
+                    local targetPosition = targetCharacter.HumanoidRootPart.Position + targetCharacter.HumanoidRootPart.CFrame.LookVector * offsetDistance
+
+                    -- Teleport behind
+                    player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+
+                    -- Face the direction of the target player
+                    local lookAtVector = targetCharacter.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position
+                    player.Character:SetPrimaryPartCFrame(CFrame.new(player.Character.HumanoidRootPart.Position, player.Character.HumanoidRootPart.Position + lookAtVector))
+                end
+            end
+        end
+    end
+end
+
+-- Start continuously teleporting behind eligible players when the LocalScript is loaded
+teleportBehindPlayers()
