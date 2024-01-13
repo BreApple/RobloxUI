@@ -8,13 +8,14 @@ local offsetDistance = -5  -- Negative value for teleporting behind
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "TeleportGui"
 screenGui.Parent = player.PlayerGui
+screenGui.ResetOnSpawn = false
 
 -- Create TextButton
 local toggleButton = Instance.new("TextButton")
 toggleButton.Name = "ToggleButton"
 toggleButton.Text = "Enable Teleport"
 toggleButton.Size = UDim2.new(0, 150, 0, 50)
-toggleButton.Position = UDim2.new(0.5, -75, 0.5, -25)
+toggleButton.Position = UDim2.new(0.2, -75, 0.75, -25)
 toggleButton.Parent = screenGui
 
 -- Reference to the main teleport script (replace with the actual path)
