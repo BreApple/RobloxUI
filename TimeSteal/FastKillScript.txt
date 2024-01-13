@@ -18,7 +18,7 @@ toggleButton.Position = UDim2.new(0.5, -75, 0.5, -25)
 toggleButton.Parent = screenGui
 
 -- Reference to the main teleport script (replace with the actual path)
-local teleportScript = game.Players.LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("TeleportScript") -- Adjust the path as needed
+--local teleportScript = game.Players.LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("TeleportScript") -- Adjust the path as needed
 
 -- Variable to track the teleport state
 local teleportEnabled = false
