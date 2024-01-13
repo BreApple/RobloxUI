@@ -38,7 +38,7 @@ toggleButton.MouseButton1Click:Connect(toggleTeleportScript)
 
 -- Function to continuously teleport behind eligible players
 local function teleportBehindPlayers()
-    while wait(1) do
+    while wait() do
         if teleportEnabled then
             -- Identify players with "Playing" boolValue set to true and are alive
             local targetPlayers = {}
