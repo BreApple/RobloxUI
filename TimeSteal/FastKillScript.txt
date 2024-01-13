@@ -25,14 +25,12 @@ local teleportEnabled = false
 
 -- Function to toggle the teleport script
 local function toggleTeleportScript()
-    if teleportScript then
-        teleportEnabled = not teleportEnabled
-        if teleportEnabled then
-            toggleButton.Text = "Disable Teleport"
-        else
-            toggleButton.Text = "Enable Teleport"
-        end
-    end
+	teleportEnabled = not teleportEnabled
+	if teleportEnabled then
+		toggleButton.Text = "Disable Teleport"
+	else
+		toggleButton.Text = "Enable Teleport"
+	end
 end
 
 -- Connect the function to the button's MouseButton1Click event
@@ -40,7 +38,7 @@ toggleButton.MouseButton1Click:Connect(toggleTeleportScript)
 
 -- Function to continuously teleport behind eligible players
 local function teleportBehindPlayers()
-    while wait() do
+    while wait(1) do
         if teleportEnabled then
             -- Identify players with "Playing" boolValue set to true and are alive
             local targetPlayers = {}
