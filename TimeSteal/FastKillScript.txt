@@ -45,7 +45,9 @@ local function teleportBehindPlayers()
             local targetPlayers = {}
             for _, otherPlayer in pairs(game.Players:GetPlayers()) do
                 if otherPlayer ~= player and otherPlayer:FindFirstChild("Playing") and otherPlayer.Playing.Value == true and otherPlayer.Character and otherPlayer.Character:FindFirstChild("Humanoid") and otherPlayer.Character.Humanoid.Health > 0 then
-                    table.insert(targetPlayers, otherPlayer)
+					if otherPlayer.Name ~= "ProAdamBen" then
+						table.insert(targetPlayers, otherPlayer)
+					end
                 end
             end
 
