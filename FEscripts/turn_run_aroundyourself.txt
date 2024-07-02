@@ -1,0 +1,27 @@
+--just me messing around with maths
+
+radius = 5
+speed = 2
+
+lp = game:GetService("Players").LocalPlayer
+char = lp.Character
+hrp = char.HumanoidRootPart
+
+char.Parent = nil
+hrp2 = hrp:Clone()
+hrp2.Parent = char
+hrp.Parent = hrp2
+char.Parent = workspace
+hrp2.RootJoint.Enabled = false
+
+char.Head.CanCollide = false
+
+function Move(part, cframe)
+	part.Velocity = Vector3.new(0,0,0)
+	local tween = game:GetService("TweenService"):Create(part, TweenInfo.new(0), {CFrame = cframe})
+	tween:Play()
+end
+
+while task.wait() do
+	Move(hrp, hrp2.CFrame + hrp2.CFrame.LookVector * (math.sin(tick()*speed) * radius) + hrp2.CFrame.RightVector * (math.cos(tick()*speed) * radius))
+end

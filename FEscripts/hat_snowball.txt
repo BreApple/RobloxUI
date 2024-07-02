@@ -1,0 +1,108 @@
+--[[
+NOTE: due to a recent roblox change this script will most likely wont work,
+More info: https://www.youtube.com/post/Ugkxd2msc7Mh8Ue0bX2_XsE5xQiFY2mYJDSa
+]]
+--[[
+Made by Rouxhaver
+Network Libary made by 4eyes
+
+wear 10 hats/hairs before running
+R6 character Required
+Replicate Client deletions MUST NOT be disabled or script wont replicate
+
+Recommended game:
+https://www.roblox.com/games/6708206173/Rate-My-Avatar
+]]
+respos = nil
+player = game:GetService("Players").LocalPlayer
+mouse = player:GetMouse()
+
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "FE Snowballs",
+	Text = "Made by Rouxhaver",
+	Icon = "rbxassetid://12997341656"
+})
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Network Credit:",
+	Text = "thanks to 4eyes for network stuff",
+	Icon = "rbxassetid://12997341656"
+})
+
+while true do
+	character = player.Character
+
+	handles = {}
+	local vbreak = false
+
+	for i,v in pairs(character:GetChildren()) do
+		if v:IsA("Accessory") then
+			handles[#handles+1] = v.Handle
+			v.Handle:FindFirstChildOfClass("SpecialMesh"):Destroy()
+			v.Handle.AccessoryWeld:Destroy()
+			local obj = Instance.new("ObjectValue",v.Handle)
+			obj.Name = "ball"
+		end
+	end
+
+	balls = Instance.new("Folder",workspace)
+
+	ballcount = 0
+
+	mouse.Button1Up:Connect(function()
+		if vbreak == true then return end
+		ballcount += 1
+		local ballid = ballcount
+		local ball = Instance.new("Part",balls)
+		ball.Size = Vector3.new(1,1,1)
+		ball.Position = character.Head.Position + Vector3.new(0,2,0)
+		ball.CFrame = CFrame.lookAt(ball.Position,mouse.Hit.Position)
+		ball.CustomPhysicalProperties = PhysicalProperties.new(0.7,2,0.5)
+		ball.Transparency = 1
+		local obj = Instance.new("ObjectValue",ball)
+		obj.Name = "handle"
+
+		local force = Instance.new("VectorForce",ball)
+		force.Force = Vector3.new(0,math.random(50,400),-1000)
+		force.Attachment0 = Instance.new("Attachment",ball)
+		wait(.1)
+		force:Destroy()
+
+		while task.wait() do
+			if ballcount - ballid > 9 then
+				ball:Destroy()
+				break
+			end
+		end
+	end)
+
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/rouxhaver/random-sh-t/main/4eye's%20net-libary%20auto%20applier.lua"))()
+
+
+	while task.wait() do
+		if vbreak == true then break end
+		for i,handle in pairs(handles) do
+			if handle.Parent == nil then
+				respos = character.HumanoidRootPart.CFrame
+				balls:Destroy()
+				vbreak = true
+				character.Humanoid.Health = 0
+				player.CharacterAppearanceLoaded:Wait()
+				break
+			end
+			if handle.ball.Value == nil or handle.ball.Value.Parent == nil then do
+					for i,ball in pairs(balls:GetChildren()) do
+						if ball.handle.Value == nil then
+							handle.ball.Value = ball
+							ball.handle.Value = handle
+							break
+						end
+					end
+					handle.Position = character.Head.Position - Vector3.new(0,5,0)
+				end else
+				handle.Position = handle.ball.Value.Position
+				handle.Orientation = handle.ball.Value.Orientation
+			end
+		end
+	end
+	player.Character.HumanoidRootPart.CFrame = respos
+end
